@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# Add only the following
+!.gitignore
+
+!/alacritty/
+!/alacritty/alacritty.toml
+
+!/nvim/
+!/nvim/**
+
+!/onedrive/
+!/onedrive/config
+
+!/zathura/
+!/zathura/zathurarc
+
+!/tmux/
+!/tmux/tmux.conf

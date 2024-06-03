@@ -1,0 +1,33 @@
+set completion-group-bg     
+set completion-group-fg         '#cdd6f4'
+set completion-bg
+set completion-fg               '#cdd6f4'
+set completion-highlight-bg
+set completion-highlight-fg     '#cdd6f4'
+
+set notification-error-bg       '#1e1e2e'
+set notification-error-fg       '#f38ba8'
+set notification-warning-bg     '#1e1e2e'
+set notification-warning-fg     '#f9e2af'
+set notification-bg             '#1e1e2e'
+set notification-fg             '#89b4fa'
+set inputbar-bg                 '#1e1e2e'
+set inputbar-fg                 '#cdd6f4'
+set statusbar-bg                '#1e1e2e'
+set statusbar-fg                '#cdd6f4'
+
+set index-bg                    '#1e1e2e'
+set index-fg                    '#cdd6f4'
+set index-active-bg             '#313244'
+set index-active-fg             '#cdd6f4'
+
+set highlight-color             '#a6e3a1'
+set highlight-active-color      '#f9e2af'
+
+set default-bg                  '#181825'
+set default-fg                  '#cdd6f4'
+set recolor-lightcolor          '#1e1e2e'
+set recolor-darkcolor           '#cdd6f4'
+
+set font                        'JetBrainsMonoNerdFontMono Regular 10'
+map i recolor                   true
