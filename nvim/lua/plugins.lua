@@ -30,5 +30,10 @@ Plug('saadparwaiz1/cmp_luasnip')
 Plug('nvim-tree/nvim-tree.lua')
 Plug('nvim-tree/nvim-web-devicons')
 
+-- Syntax highlighting
+Plug('nvim-treesitter/nvim-treesitter', {
+    ['do']=':TSUpdate'
+})
+
 vim.call('plug#end')
 

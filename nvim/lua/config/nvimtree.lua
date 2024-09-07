@@ -31,7 +31,7 @@ require('nvim-tree').setup({
     hijack_netrw = true,
     -- Config
     view = {
-        width = 40,
+        width = 80,
         number = true,
         relativenumber = true,
     },
@@ -40,6 +40,11 @@ require('nvim-tree').setup({
     },
     filters = {
         dotfiles = false,
+    },
+    actions = {
+        open_file = {
+            quit_on_open = true,
+        },
     },
     -- Diagnostics
     diagnostics = {
@@ -54,6 +59,7 @@ require('nvim-tree').setup({
     -- Git configuration
     git = {
         enable = true,
+        ignore = false,
     },
     renderer = {
         icons = {

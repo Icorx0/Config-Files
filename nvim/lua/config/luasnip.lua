@@ -53,6 +53,9 @@ ls.add_snippets('all',{
     s('\"',{
         t('\"'),i(1),t('\"'),i(0)
     }),
+    s('<',{
+        t('<'),i(1),t('>'),i(0)
+    }),
 })
 
 -- Latex snippets
@@ -88,8 +91,16 @@ ls.add_snippets('tex',{
     }),
     -- Math integration
     ms(tex_trig('begin'),{
-        t('\\begin{'),i(1),t('}'),
-        t({'', '\t'}), i(2),
+        t('\\begin{'), i(1), t('}'),
+        -- Enumerate label integration
+        c(2, {t(''),
+            sn(1, {
+                t('[label='),
+                i(1, '\\alph*)'),
+                t(']')
+            }),
+        }),
+        t({'', '\t'}), i(3),
         t({'', '\\end{'}), rep(1), t('}'),
         i(0)
     }),
@@ -109,37 +120,44 @@ ls.add_snippets('tex',{
         t('\\sum_{'),i(1,'n=1'),t('}^{'),i(2,'\\infty'),t('}'),i(0)
     }),
     ms(tex_trig('lim'),{
-        t('\\lim_{'),i(1,'n'),t('\\to'),i(2,'\\infty'),t('}'),i(0)
+        t('\\lim_{'),i(1,'n'),t('\\to '),i(2,'\\infty'),t('}'),i(0)
     }),
     ms(tex_trig('int'),{
         t('\\int_{'),i(1,'a'),t('}^{'),i(2,'b'),t('}'),i(0)
     }),
     ms(tex_trig('fun'),{
-        i(1,'f'),t(':'),i(2,'\\mathbb{R}'),t('\\to'),i(3,'\\mathbb{R}'),i(0)
+        i(1,'f'),t(':'),i(2,'\\mathbb{R}'),t('\\to '),i(3,'\\mathbb{R}'),i(0)
     }),
     ms(tex_trig('norm'),{
-        t('||'),i(1),t('||'),
+        t('\\|'),i(1),t('\\|'),
+    }),
+    ms(tex_trig('inner'),{
+        t('\\langle '),i(1),t('\\rangle'),
     }),
     ms(tex_trig('abs'),{
         t('|'),i(1),t('|'),
     }),
+    ms(tex_trig('left'),{
+        t('\\left'),i(1),t(' '),i(3),t(' \\right'),rep(2),i(0)
+    }),
+    ms(tex_trig('underbrace'),{
+        t('\\underbrace{'),i(1),t('}_{'),i(2),t('}'),i(0)
+    }),
+    ms(tex_trig('overbrace'),{
+        t('\\overbrace{'),i(1),t('}^{'),i(2),t('}'),i(0)
+    }),
+    -- Custom operators
     ms(tex_trig('laplace'),{
         t('\\mathcal{L}\\{'),i(1),t('\\}'),i(0)
     }),
     ms(tex_trig('invlaplace'),{
         t('\\mathcal{L}^{-1}\\{'),i(1),t('\\}'),i(0)
     }),
-    ms(tex_trig('underbrace'),{
-        t('\\underbrace{'),i(1),t('}_{'),i(2),t('}'),i(0)
-    }),
-    ms(tex_trig('ovebrace'),{
-        t('\\overbrace{'),i(1),t('}^{'),i(2),t('}'),i(0)
-    }),
     -- Math tikz figures
     s('tikz',{
         t('\\begin{center}'),
         t({'','\t\\begin{tikzpicture}['}),i(1),t(']'),
-        i(0),
+        t({'','\t\t'}),i(0),
         t({'','\t\\end{tikzpicture}'}),
         t({'','\\end{center}'})
     }),
@@ -147,7 +165,7 @@ ls.add_snippets('tex',{
         t('\\begin{axis}['),
         t('xmin='),i(1,'-10'),t(','),t('xmax='),i(2,'10'),t(','),
         t('ymin='),i(3,'-10'),t(','),t('ymax='),i(4,'10'),t(','),
-        t({'','\taxisline='}),i(5,'middle'),t(','),
+        t({'','\taxis lines='}),i(5,'middle'),t(','),
         t({'','\tylabel='}),i(6,'\\(y\\)'),t(','),
         t({'','\txlabel='}),i(7,'\\(x\\)'),t(','),
         c(8,{
@@ -173,7 +191,7 @@ ls.add_snippets('tex',{
         t(' ,color='),i(3,'blue'),t(' ,samples='),i(4,'100'),t(']'),
         c(5,{
             sn(1,{
-                t(' {\\('),i(1),t('\\)};'),
+                t(' {'),i(1),t('};'),
                 f(function (args,_,_)
                     return {'', '\\addlegendentry{\\(' .. args[1][1] .. '\\)}'}
                 end,{1},{}),
@@ -183,5 +201,49 @@ ls.add_snippets('tex',{
             }),
         }),
         i(0),
+    }),
+    -- Template snippet
+    ms(tex_trig('template'),{
+        t('\\input{../../template.tex}'),
+        t({'','% Title'}),
+        t({'','\\begin{document}'}),
+        t({'','\\begin{center}'}),
+        t({'','\t\\large{'}),i(1,'Class name'),t('}\\\\'),
+        t({'','\t\\normalsize{Bruno Wong}'}),
+        t({'','\\end{center}'}),
+        t({'','\\tableofcontents'}),
+        t({'','% Content'}),
+        t(''),i(0),
+        t({'','\\end{document}'}),
     })
+})
+ls.filetype_extend('plaintex',{'tex'})
+
+ls.add_snippets('cpp',{
+    -- Template snippet
+    s('template',{
+        t({
+        "#include <bits/stdc++.h>",
+        "#define ll long long",
+        "#define EPS 1e-16",
+        "#define INF 1e16",
+        "#define ENDL \"\\n\"",
+        "",
+        "using namespace std;",
+        "",
+        "void solve() {","\t"}),
+        i(0),
+        t({"",
+        "}",
+        "",
+        "int main(void) {",
+            "\tcin.tie(0);",
+            "\tcout.tie(0);",
+            "\tios::sync_with_stdio(false);",
+            "\tint t = 1;",
+            "\tcin >> t;",
+            "\twhile(t--) solve();",
+            "\treturn 0;",
+        "}",}),
+    }),
 })
