@@ -12,8 +12,7 @@ local rep = require('luasnip.extras').rep
 
 -- Custom Keybindings for snippets
 vim.keymap.set({"i", "s"}, "<C-l>", function() ls.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-h>", function() ls.jump(-1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-j>", function()
+vim.keymap.set({"i", "s"}, "<C-h>", function() ls.jump(-1) end, {silent = true}) vim.keymap.set({"i", "s"}, "<C-j>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
@@ -202,9 +201,12 @@ ls.add_snippets('tex',{
         }),
         i(0),
     }),
+    ms(tex_trig('suc'),{
+        t('('),i(1,'x_n'),t(')_{'),i(2,'n'),t('\\in\\mathbb{N}}')
+    }),
     -- Template snippet
     ms(tex_trig('template'),{
-        t('\\input{../../template.tex}'),
+        t('\\input{template.tex}'),
         t({'','% Title'}),
         t({'','\\begin{document}'}),
         t({'','\\begin{center}'}),
