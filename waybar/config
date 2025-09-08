@@ -29,12 +29,12 @@
         "format-icons": ["", "", "", "", ""]
     },
     "cpu": {
-        "format": "  {usage}%",
+        "format": "  {usage:02}%",
         "tooltip": true,
         "interval": 1
     },
     "memory": {
-        "format": " {used:0.1f}G/{total:0.1f}G",
+        "format": " {used:0.2f}G/{total:0.2f}Gb",
         "interval": 1
     },
     "clock": {
