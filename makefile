@@ -18,9 +18,10 @@ collect:
 	@cp $(HOME)/.tmux.conf tmux/tmux.conf
 
 	# bashrc
-	@echo "   Copying bashrc..."
+	@echo "   Copying bashrc and bash_profile..."
 	@mkdir -p bash
 	@cp $(HOME)/.bashrc bash/bashrc
+	@cp $(HOME)/.bash_profile bash/bash_profile
 
 	# alacritty
 	@echo "   Copying alacritty config..."
@@ -53,7 +54,9 @@ apply:
 	# Apply bashrc
 	@echo "   Applying bashrc..."
 	@if [ -f "$(HOME)/.bashrc" ]; then mv "$(HOME)/.bashrc" "$(HOME)/.bashrc.bak"; fi
+	@if [ -f "$(HOME)/.bash_profile" ]; then mv "$(HOME)/.bash_profile" "$(HOME)/.bash_profile.bak"; fi
 	@cp ./bash/bashrc $(HOME)/.bashrc
+	@cp ./bash/bash_profile $(HOME)/.bash_profile
 
 	# Apply alacritty.toml
 	@echo "   Applying alacritty config..."

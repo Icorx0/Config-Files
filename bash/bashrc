@@ -47,3 +47,4 @@ RESET='\[\e[0m\]' # This resets the color back to default
 
 # \u = username, \h = hostname, \w = current working directory
 export PS1="${GREEN}\u@\h${LIGHT_GRAY}:\w\$ ${RESET}"
+

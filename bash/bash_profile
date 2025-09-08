@@ -1,0 +1,10 @@
+#
+# ~/.bash_profile
+#
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+# SSH agent
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+ssh-add ~/.ssh/id_ed25519Protecso
+ssh-add ~/.ssh/id_ed25519Icorx0
