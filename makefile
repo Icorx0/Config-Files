@@ -29,8 +29,13 @@ collect:
 
 	# Hyprland
 	@echo "   Copying hyprland config..."
-	@mkdir -p hyprland
-	@cp $(HOME)/.config/hypr/hyprland.conf hyprland/hyprland.conf
+	@rm -rf hypr/
+	@cp -r $(HOME)/.config/hypr ./hypr
+
+	# Waybar
+	@echo "   Copying waybar config..."
+	@rm -rf waybar/
+	@cp -r $(HOME)/.config/waybar ./waybar
 
 	# nvim
 	@echo "   Copying nvim config directory..."
@@ -56,11 +61,15 @@ apply:
 	@if [ -f "$(HOME)/.config/alacritty/alacritty.toml" ]; then mv "$(HOME)/.config/alacritty/alacritty.toml" "$(HOME)/.config/alacritty/alacritty.toml.bak"; fi
 	@cp ./alacritty/alacritty.toml $(HOME)/.config/alacritty/alacritty.toml
 
-	# Apply hyprland.conf
-	@echo "   Applying hyprland config..."
-	@mkdir -p $(HOME)/.config/hypr
-	@if [ -f "$(HOME)/.config/hypr/hyprland.conf" ]; then mv "$(HOME)/.config/hypr/hyprland.conf" "$(HOME)/.config/hypr/hyprland.conf.bak"; fi
-	@cp ./hypr/hyprland.conf $(HOME)/.config/hypr/hyprland.conf
+	# Apply hyprland directory
+	@echo "   Applying hyprland config directory..."
+	@if [ -d "$(HOME)/.config/hypr" ]; then mv "$(HOME)/.config/hypr" "$(HOME)/.config/hypr.bak"; fi
+	@cp -r ./hypr $(HOME)/.config/hypr
+
+	# Apply waybar directory
+	@echo "   Applying waybar config directory..."
+	@if [ -d "$(HOME)/.config/wabar" ]; then mv "$(HOME)/.config/waybar" "$(HOME)/.config/waybar.bak"; fi
+	@cp -r ./waybar $(HOME)/.config/waybar
 
 	# Apply nvim directory
 	@echo "   Applying nvim config directory..."
