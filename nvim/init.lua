@@ -16,7 +16,7 @@ vim.cmd('set textwidth=80')
 vim.cmd('set wrap')
 
 -- Theme
-vim.cmd.colorscheme 'catppuccin-latte'
+vim.cmd.colorscheme 'catppuccin-mocha'
 
 -- Custom commands
 function Compile_latex()
@@ -51,5 +51,5 @@ function Open_latex()
     vim.cmd('!xdg-open ' .. latex_dir .. '/' .. filename .. '.pdf')
 end
 vim.cmd([[
-  command! OpenLatex lua Open_latex() 
+    command! OpenLatex lua Open_latex()
 ]])
