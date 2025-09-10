@@ -43,6 +43,10 @@ collect:
 	@rm -rf nvim/
 	@cp -r $(HOME)/.config/nvim ./nvim
 
+	# zathura
+	@echo "   Copying zathura config directory..."
+	@rm -rf zathura/
+	@cp -r $(HOME)/.config/zathura ./zathura
 apply:
 	@echo "Applying dotfiles from repository to system..."
 
@@ -78,5 +82,10 @@ apply:
 	@echo "   Applying nvim config directory..."
 	@if [ -d "$(HOME)/.config/nvim" ]; then mv "$(HOME)/.config/nvim" "$(HOME)/.config/nvim.bak"; fi
 	@cp -r ./nvim $(HOME)/.config/nvim
+
+	# Apply zathura directory
+	@echo "   Applying zathura config directory..."
+	@if [ -d "$(HOME)/.config/zathura" ]; then mv "$(HOME)/.config/zathura" "$(HOME)/.config/zathura.bak"; fi
+	@cp -r ./nvim $(HOME)/.config/zathura
 
 	@echo "✅ Application complete. Existing files were backed up with a .bak extension."

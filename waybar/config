@@ -1,10 +1,10 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 40,
+    "height": 30,
     "modules-left": ["cpu", "memory", "hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "battery", "custom/spotify"],
+    "modules-right": ["pulseaudio", "network", "battery"],
 
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -28,31 +28,32 @@
     },
     "battery": {
         "states": {
-            "warning": 30,
-            "critical": 15
+            "warning": 40,
+            "critical": 10
         },
-        "format": "{icon}   {capacity}%",
+        "format": "{capacity}% {icon}",
         "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% 🔌",
+        "format-plugged": "{capacity}% ",
         "format-alt": "{time}",
         "format-icons": ["", "", "", "", ""]
     },
     "cpu": {
-        "format": "  {usage:02}%",
+        "format": " {usage:02}%",
         "tooltip": true,
-        "interval": 1
+        "interval": 1,
+        "critical-threshold": 80
     },
     "memory": {
-        "format": " {used:0.2f}G/{total:0.2f}Gb",
+        "format": " {used:0.2f}GiB/{total:0.2f}GiB",
         "interval": 1
     },
     "clock": {
-        "format": "  {:%H:%M    %d/%m}",
+        "format": " {:%H:%M %d-%m} ",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "pulseaudio": {
-        "format": "{icon}   {volume}%",
-        "format-muted": "  Muted",
+        "format": "{volume}% {icon}",
+        "format-muted": "Muted ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -65,9 +66,9 @@
         "on-click": "pavucontrol"
     },
     "network": {
-        "format-wifi": "   {essid}",
-        "format-ethernet": "   {ifname}",
-        "format-disconnected": "⚠  Disconnected",
+        "format-wifi": "{essid} ",
+        "format-ethernet": "{ifname} ",
+        "format-disconnected": "Disconnected ⚠",
         "on-click": "nm-connection-editor"
     }
 }

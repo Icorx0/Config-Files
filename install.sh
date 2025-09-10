@@ -15,11 +15,13 @@ PACKAGES=(
     neovim
     alacritty
     hyprland
+    hyprpaper
     tmux
     git
     make
     curl
     tree-sitter-cli
+    zathura
 )
 
 # --- Automatically detect package manager ---

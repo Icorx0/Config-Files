@@ -1,28 +1,33 @@
  *{
     border: none;
     border-radius: 0;
-    font-family: JetBrains Mono, FontAwesome;
+    font-family: JetBrainsMonoNerdFontMono;
     font-size: 15px;
-    min-height: 0;
+    min-height: 20px;
 }
 
 window#waybar {
-    background: rgba(24, 25, 38, 0.9);
+    /* background: #1e1e2e; */
+    background: rgba(30, 30, 46, 1.0);
     color: #cdd6f4;
 }
 
 #workspaces,
-#clock,
 #pulseaudio,
 #memory,
 #cpu,
 #network,
-#battery,
-#custom-spotify {
+#battery {
     padding: 0 10px;
-    margin: 3px 3px;
-    background-color: #313244;
-    border-radius: 8px;
+    margin: 0px 0px;
+    background-color: #1e1e2e;
+}
+
+#clock{
+    padding: 0 10px;
+    margin: 0px 0px;
+    background-color: #a6e3a1;
+    color: #1e1e2e;
 }
 
 #workspaces button {
@@ -31,7 +36,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-    color: #cba6f7;
+    color: #a6e3a1;
 }
 
 #workspaces button:hover {
@@ -41,41 +46,31 @@ window#waybar {
     color: #cdd6f4;
 }
 
-#clock {
-    background-color: #fab387;
-    color: #11111b;
+#pulseaudio.muted {
+    background-color: #f38ba8; /* Catppuccin Mocha Red */
+    color: #cdd6f4;            /* Catppuccin Mocha Text */
 }
 
-#pulseaudio {
-    background-color: #89b4fa;
-    color: #11111b;
+#network.disconnected {
+    background-color: #f38ba8; /* Catppuccin Mocha Red */
+    color: #cdd6f4;            /* Catppuccin Mocha Text */
 }
 
-#network {
-    background-color: #a6e3a1;
-    color: #11111b;
+#cpu.warning {
+    background-color: #f38ba8; /* Catppuccin Mocha Red */
+    color: #cdd6f4;            /* Catppuccin Mocha Text */
 }
-
-#cpu {
-    background-color: #f38ba8;
-    color: #11111b;
+#cpu.critical {
+    background-color: #f38ba8; /* Catppuccin Mocha Red */
+    color: #cdd6f4;            /* Catppuccin Mocha Text */
 }
 
 #memory {
-    background-color: #cba6f7;
-    color: #11111b;
-}
-
-#custom-spotify {
-    background-color: #1DB954;
-    color: #11111b;
 }
 
 #battery.warning {
-    color: #ffc107;
-}
-#battery.critical {
-    color: #f44336;
+    background-color: #f38ba8; /* Catppuccin Mocha Red */
+    color: #cdd6f4;            /* Catppuccin Mocha Text */
     animation-name: blink;
     animation-duration: 0.8s;
     animation-timing-function: linear;

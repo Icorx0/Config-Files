@@ -50,3 +50,6 @@ require('lualine').setup {
         lualine_z = {}
     },
 }
+
+-- Keymap to show the warnings or errors in the cursor
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })

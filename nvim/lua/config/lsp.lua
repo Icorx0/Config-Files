@@ -23,6 +23,7 @@ lspcfg['pyright'].setup({
         usePlaceholders = true,
     },
 })
+
 -- Lua
 lspcfg['lua_ls'].setup({
     capabilities = capabilities,
