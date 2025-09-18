@@ -1,0 +1,1 @@
+convert -size 1920x1080 xc:'#1e1e2e' -font 'JetBrainsMono-NFM-Regular' -pointsize 50 -fill white -gravity center -annotate +0+0 "Tit For Tat" -pointsize 20 -annotate +0+60 "icorx0 nhrot vincenzo26" ~/Pictures/wallpaper.png

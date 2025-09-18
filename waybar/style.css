@@ -69,11 +69,11 @@ window#waybar {
 }
 
 #battery.warning {
+    background-color: #fab387; /* Catppuccin Mocha Peach */
+    color: #cdd6f4;            /* Catppuccin Mocha Text */
+}
+
+#battery.critical {
     background-color: #f38ba8; /* Catppuccin Mocha Red */
     color: #cdd6f4;            /* Catppuccin Mocha Text */
-    animation-name: blink;
-    animation-duration: 0.8s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
 }
