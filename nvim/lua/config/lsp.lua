@@ -1,5 +1,4 @@
 -- Local variables
-local lspcfg = require('lspconfig')
 local opts = { noremap = true, silent = true, nowait = true }
 
 -- Custom bindings for all lsp languages
@@ -16,7 +15,7 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Pyright
-lspcfg['pyright'].setup({
+vim.lsp.config('pyright', {
     capabilities = capabilities,
     on_attach = on_attach,
     init_options = {
@@ -25,7 +24,7 @@ lspcfg['pyright'].setup({
 })
 
 -- Lua
-lspcfg['lua_ls'].setup({
+vim.lsp.config('lua_ls', {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = {
@@ -47,7 +46,7 @@ lspcfg['lua_ls'].setup({
 })
 
 -- C, C++
-lspcfg['clangd'].setup({
+vim.lsp.config('clangd', {
     capabilities = capabilities,
     on_attach = on_attach,
     init_options = {
