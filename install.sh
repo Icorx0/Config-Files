@@ -62,14 +62,23 @@ PACKAGES_TO_INSTALL+=("make" "git")
 
 for app in $ENABLED; do
     case "$app" in
-        nvim)       PACKAGES_TO_INSTALL+=("neovim" "curl" "tree-sitter-cli") ;;
+        nvim)       PACKAGES_TO_INSTALL+=("neovim" "curl") ;;
         tmux)       PACKAGES_TO_INSTALL+=("tmux") ;;
-        alacritty)  PACKAGES_TO_INSTALL+=("alacritty") ;;
-        hyprland)   PACKAGES_TO_INSTALL+=("hyprland") ;; # Note: May require a specific repo
-        waybar)     PACKAGES_TO_INSTALL+=("waybar") ;;   # Note: May require a specific repo
+        alacritty)
+            if [ "$PKG_MANAGER" = "apt-get" ]; then
+                # Alacritty is not in Ubuntu's default repos; add the PPA.
+                if ! grep -q "aslatter/ppa" /etc/apt/sources.list.d/*.list 2>/dev/null; then
+                    echo "Adding Alacritty PPA..."
+                    apt-get install -y software-properties-common
+                    add-apt-repository -y ppa:aslatter/ppa
+                fi
+            fi
+            PACKAGES_TO_INSTALL+=("alacritty")
+            ;;
+        hyprland)   PACKAGES_TO_INSTALL+=("hyprland") ;;
+        waybar)     PACKAGES_TO_INSTALL+=("waybar") ;;
         zathura)    PACKAGES_TO_INSTALL+=("zathura") ;;
-        bash)       # No package needed for bash
-                    ;;
+        bash)       ;;
         *)          echo "Warning: No installation rule for '$app'. Please install it manually if needed." ;;
     esac
 done
@@ -83,6 +92,23 @@ if [ ${#PACKAGES_TO_INSTALL[@]} -gt 0 ]; then
     echo "System packages installed."
 else
     echo "No new packages to install."
+fi
+
+# --- Install tree-sitter-cli (npm/cargo, not available via apt) ---
+if [[ " $ENABLED " =~ " nvim " ]]; then
+    if ! command -v tree-sitter &> /dev/null; then
+        if command -v npm &> /dev/null; then
+            echo "Installing tree-sitter-cli via npm..."
+            npm install -g tree-sitter-cli
+        elif command -v cargo &> /dev/null; then
+            echo "Installing tree-sitter-cli via cargo..."
+            sudo -u "$SUDO_USER" cargo install tree-sitter-cli
+        else
+            echo "Warning: tree-sitter-cli requires npm or cargo. Please install it manually."
+        fi
+    else
+        echo "tree-sitter-cli is already installed."
+    fi
 fi
 
 # --- Application-Specific Setups ---
@@ -100,29 +126,22 @@ fi
 
 # Install Nerd Font if a GUI or TUI app that benefits from it is enabled.
 if [[ " $ENABLED " =~ (nvim|alacritty|hyprland|waybar) ]]; then
-    install_nerd_font() {
-        echo "Installing JetBrains Mono Nerd Font..."
-        local FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip"
-        # Correctly resolve the user's home directory.
-        local USER_HOME
-        USER_HOME=$(eval echo ~$SUDO_USER)
-        local FONT_DIR="$USER_HOME/.local/share/fonts"
-        local EXPECTED_FONT_FILE="$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf"
+    FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip"
+    USER_HOME=$(eval echo ~"$SUDO_USER")
+    FONT_DIR="$USER_HOME/.local/share/fonts"
+    EXPECTED_FONT_FILE="$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf"
 
-        if [ -f "$EXPECTED_FONT_FILE" ]; then
-            echo "JetBrains Mono Nerd Font already appears to be installed."
-        else
-            echo "Downloading and installing font..."
-            mkdir -p "$FONT_DIR"
-            curl -L -f -o /tmp/JetBrainsMono.zip "$FONT_URL"
-            unzip -o /tmp/JetBrainsMono.zip -d "$FONT_DIR"
-            rm /tmp/JetBrainsMono.zip
-            echo "Updating font cache..."
-            fc-cache -f -v
-        fi
-    }
-    # Run the function as the original user.
-    sudo -u "$SUDO_USER" bash -c "$(declare -f install_nerd_font); install_nerd_font"
+    if [ -f "$EXPECTED_FONT_FILE" ]; then
+        echo "JetBrains Mono Nerd Font already appears to be installed."
+    else
+        echo "Downloading and installing JetBrains Mono Nerd Font..."
+        sudo -u "$SUDO_USER" mkdir -p "$FONT_DIR"
+        curl -L -f -o /tmp/JetBrainsMono.zip "$FONT_URL"
+        sudo -u "$SUDO_USER" unzip -o /tmp/JetBrainsMono.zip -d "$FONT_DIR"
+        rm /tmp/JetBrainsMono.zip
+        echo "Updating font cache..."
+        sudo -u "$SUDO_USER" fc-cache -f
+    fi
 fi
 
 # --- Apply Dotfiles ---
