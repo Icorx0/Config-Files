@@ -16,7 +16,8 @@ vim.cmd('set textwidth=80')
 vim.cmd('set wrap')
 
 -- Theme
-vim.cmd.colorscheme 'catppuccin-mocha'
+vim.o.background = 'light'
+vim.cmd.colorscheme 'catppuccin-latte'
 
 -- Custom commands
 function Compile_latex()
