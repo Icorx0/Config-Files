@@ -36,7 +36,7 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate', -- Command to run after installing/updating
     config = function()
-      require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
+      -- Highlighting is now built into Neovim via vim.treesitter
     end
   },
 

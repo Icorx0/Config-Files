@@ -78,6 +78,7 @@ for app in $ENABLED; do
         hyprland)   PACKAGES_TO_INSTALL+=("hyprland") ;;
         waybar)     PACKAGES_TO_INSTALL+=("waybar") ;;
         zathura)    PACKAGES_TO_INSTALL+=("zathura") ;;
+        latex)      PACKAGES_TO_INSTALL+=("texlive-full") ;;
         bash)       ;;
         *)          echo "Warning: No installation rule for '$app'. Please install it manually if needed." ;;
     esac

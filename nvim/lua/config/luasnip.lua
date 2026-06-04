@@ -70,8 +70,8 @@ ls.add_snippets('tex',{
     ms(tex_trig('mbb'),{
         t('\\mathbb{'),i(1),t('}'),i(0)
     }),
-    ms(tex_trig('msrc'),{
-        t('\\mathsrc{'),i(1),t('}'),i(0)
+    ms(tex_trig('mscr'),{
+        t('\\mathscr{'),i(1),t('}'),i(0)
     }),
     ms(tex_trig('mfrak'),{
         t('\\mathfrak{'),i(1),t('}'),i(0)
@@ -88,6 +88,18 @@ ls.add_snippets('tex',{
     ms(tex_trig('overline'),{
         t('\\overline{'),i(1),t('}'),i(0)
     }),
+    ms(tex_trig('hat'),{
+        t('\\hat{'),i(1),t('}'),i(0)
+    }),
+    ms(tex_trig('tilde'),{
+        t('\\tilde{'),i(1),t('}'),i(0)
+    }),
+    ms(tex_trig('overset'),{
+        t('\\overset{'),i(2),t('}{'),i(1),t('}'),i(0)
+    }),
+    ms(tex_trig('underset'),{
+        t('\\underset{'),i(2),t('}{'),i(1),t('}'),i(0)
+    }),
     -- Math integration
     ms(tex_trig('begin'),{
         t('\\begin{'), i(1), t('}'),
@@ -96,6 +108,11 @@ ls.add_snippets('tex',{
             sn(1, {
                 t('[label='),
                 i(1, '\\alph*)'),
+                t(']')
+            }),
+            sn(2, {
+                t('[label='),
+                i(1, '\\roman*)'),
                 t(']')
             }),
         }),
@@ -109,6 +126,9 @@ ls.add_snippets('tex',{
     ms(tex_trig('dm'),{
         t('\\['),i(1),t('\\]'),i(0)
     }),
+    ms(tex_trig('dstyle'),{
+        t('\\displaystyle '),i(0)
+    }),
     ms(tex_trig('frac'),{
         t('\\frac{'),i(1),t('}{'),i(2),t('}'),i(0)
     }),
@@ -117,6 +137,21 @@ ls.add_snippets('tex',{
     }),
     ms(tex_trig('sum'),{
         t('\\sum_{'),i(1,'n=1'),t('}^{'),i(2,'\\infty'),t('}'),i(0)
+    }),
+    ms(tex_trig('prod'),{
+        t('\\prod_{'),i(1,'n=1'),t('}^{'),i(2,'\\infty'),t('}'),i(0)
+    }),
+    ms(tex_trig('bigcup'),{
+        t('\\bigcup_{'),i(1,'n=1'),t('}^{'),i(2,'\\infty'),t('}'),i(0)
+    }),
+    ms(tex_trig('bigcap'),{
+        t('\\bigcap_{'),i(1,'n=1'),t('}^{'),i(2,'\\infty'),t('}'),i(0)
+    }),
+    ms(tex_trig('bigvee'),{
+        t('\\bigvee_{'),i(1,'n=1'),t('}^{'),i(2,'\\infty'),t('}'),i(0)
+    }),
+    ms(tex_trig('bigwedge'),{
+        t('\\bigwedge_{'),i(1,'n=1'),t('}^{'),i(2,'\\infty'),t('}'),i(0)
     }),
     ms(tex_trig('lim'),{
         t('\\lim_{'),i(1,'n'),t('\\to '),i(2,'\\infty'),t('}'),i(0)
@@ -138,6 +173,32 @@ ls.add_snippets('tex',{
     }),
     ms(tex_trig('left'),{
         t('\\left'),i(1),t(' '),i(3),t(' \\right'),rep(2),i(0)
+    }),
+    ms(tex_trig('bigbracket'),{
+        t('\\left'),
+        c(1, {
+            sn(1, {t('('), i(1), t(' \\right)')}),
+            sn(2, {t('\\{'), i(1), t(' \\right\\}')}),
+            sn(3, {t('['), i(1), t(' \\right]')}),
+            sn(4, {t('|'), i(1), t(' \\right|')}),
+            sn(5, {t('\\|'), i(1), t(' \\right\\|')}),
+        }),
+        i(0)
+    }),
+    ms(tex_trig('interval'),{
+        c(1, {
+            sn(1, {t('('), i(1), t(', '), i(2), t(')')}),
+            sn(2, {t('['), i(1), t(', '), i(2), t(']')}),
+            sn(3, {t('('), i(1), t(', '), i(2), t(']')}),
+            sn(4, {t('['), i(1), t(', '), i(2), t(')')}),
+        }),
+        i(0)
+    }),
+    ms(tex_trig('pow'),{
+        t('^{'),i(1),t('}'),i(0)
+    }),
+    ms(tex_trig('sub'),{
+        t('_{'),i(1),t('}'),i(0)
     }),
     ms(tex_trig('underbrace'),{
         t('\\underbrace{'),i(1),t('}_{'),i(2),t('}'),i(0)
@@ -217,7 +278,48 @@ ls.add_snippets('tex',{
         t({'','% Content'}),
         t(''),i(0),
         t({'','\\end{document}'}),
-    })
+    }),
+    -- Custom template commands
+    ms(tex_trig('definition'),{
+        t({'\\begin{definitionenv}','\t'}),i(1),
+        t({'','\\end{definitionenv}'}),i(0)
+    }),
+    ms(tex_trig('theorem'),{
+        t('\\begin{theoremenv}['),i(1),t({']','\t'}),i(2),
+        t({'','\\end{theoremenv}'}),i(0)
+    }),
+    ms(tex_trig('corollary'),{
+        t('\\begin{corollaryenv}['),i(1),t({']','\t'}),i(2),
+        t({'','\\end{corollaryenv}'}),i(0)
+    }),
+    ms(tex_trig('proposition'),{
+        t('\\begin{propositionenv}['),i(1),t({']','\t'}),i(2),
+        t({'','\\end{propositionenv}'}),i(0)
+    }),
+    ms(tex_trig('observation'),{
+        t({'\\begin{observationenv}','\t'}),i(1),
+        t({'','\\end{observationenv}'}),i(0)
+    }),
+    ms(tex_trig('proof'),{
+        t({'\\begin{proofenv}','\t'}),i(1),
+        t({'','\\end{proofenv}'}),i(0)
+    }),
+    ms(tex_trig('example'),{
+        t({'\\begin{exampleenv}','\t'}),i(1),
+        t({'','\\end{exampleenv}'}),i(0)
+    }),
+    ms(tex_trig('exercise'),{
+        t('\\begin{exerciseenv}['),i(1),t({']','\t'}),i(2),
+        t({'','\\end{exerciseenv}'}),i(0)
+    }),
+    ms(tex_trig('solution'),{
+        t({'\\begin{solutionenv}','\t'}),i(1),
+        t({'','\\end{solutionenv}'}),i(0)
+    }),
+    ms(tex_trig('cindent'),{
+        t({'\\begin{indentenv}','\t'}),i(1),
+        t({'','\\end{indentenv}'}),i(0)
+    }),
 })
 ls.filetype_extend('plaintex',{'tex'})
 

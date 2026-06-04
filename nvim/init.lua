@@ -33,7 +33,7 @@ function Compile_latex()
     -- Create directories for latex garbage and for pdf output and creates
     -- symbolic link if it doesn't exists
     vim.cmd('!mkdir -p ' .. latex_dir)
-    vim.cmd('!ln -sfn ' .. vim.fn.expand('%.p') .. ' '
+    vim.cmd('!ln -sfn ' .. vim.fn.expand('%:p') .. ' '
         .. latex_dir .. '/' .. filename .. '.tex')
     vim.cmd('!ln -sfn ' .. current_dir .. '/template.tex '
         .. latex_dir .. '/template.tex')
