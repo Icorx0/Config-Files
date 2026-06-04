@@ -35,9 +35,41 @@ This repository currently manages the configuration for:
 - Neovim - A modern, highly extensible text editor.
 - Tmux - A terminal multiplexer.
 - Hyprland - A dynamic tiling Wayland compositor.
+- Waybar - A status bar for Wayland compositors.
+- Zathura - A keyboard-driven document (PDF) viewer.
 - Bash - The standard GNU Bourne-Again Shell.
+- LaTeX - `texlive-full` plus Neovim snippets for math/document authoring.
+- rclone - Cloud sync tool used to mirror `~/Documents/Notes` to Google Drive.
+
+Each item is toggled by listing it in the `ENABLED` variable of your `.env`
+file; `install.sh` then installs the matching packages.
+
+## Themes
+The `themes/` folder stores Catppuccin **Mocha** (dark) and **Latte** (light)
+variants for Alacritty, Neovim, and Tmux. The active configs currently use
+Latte; to switch, copy the relevant snippet from `themes/` into the live config
+(see `themes/README.md`).
+
+## Notes → Google Drive Sync (rclone)
+A systemd user timer mirrors `~/Documents/Notes` to Google Drive once a day.
+
+- `rclone/sync-notes.sh` - the mirror script (`rclone sync`, excludes `.git`).
+- `systemd/user/rclone-sync-notes.{service,timer}` - daily oneshot + timer
+  (`Persistent=true` catches up runs missed while the machine was off).
+
+Setup on a new machine (after enabling `rclone` in `.env`):
+```
+rclone config                       # add a Google Drive remote named "DriveBruno"
+ln -sf "$PWD/systemd/user/rclone-sync-notes.service" ~/.config/systemd/user/
+ln -sf "$PWD/systemd/user/rclone-sync-notes.timer"   ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now rclone-sync-notes.timer
+```
+Note: your rclone token lives in `~/.config/rclone/rclone.conf` and is **not**
+tracked here — never commit it.
 
 Useful Links
 [Alacritty Configuration](https://alacritty.org/config-alacritty.html)
 [Neovim Documentation](https://neovim.io/doc/)
 [lazy.nvim Plugin Manager](https://github.com/folke/lazy.nvim)
+[rclone Documentation](https://rclone.org/docs/)

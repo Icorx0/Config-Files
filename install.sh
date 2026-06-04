@@ -89,6 +89,7 @@ for app in $ENABLED; do
         waybar)     PACKAGES_TO_INSTALL+=("waybar") ;;
         zathura)    PACKAGES_TO_INSTALL+=("zathura") ;;
         latex)      PACKAGES_TO_INSTALL+=("texlive-full") ;;
+        rclone)     PACKAGES_TO_INSTALL+=("rclone") ;;
         bash)       ;;
         *)          echo "Warning: No installation rule for '$app'. Please install it manually if needed." ;;
     esac

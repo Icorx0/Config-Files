@@ -3,7 +3,9 @@
 # Run by the rclone-sync-notes.timer systemd user unit, or manually.
 set -euo pipefail
 
-RCLONE="${RCLONE:-$HOME/.local/bin/rclone}"
+# Prefer rclone on PATH (e.g. apt-installed /usr/bin/rclone), otherwise fall
+# back to the user-local install used when set up without root.
+RCLONE="${RCLONE:-$(command -v rclone || echo "$HOME/.local/bin/rclone")}"
 SRC="${NOTES_SRC:-$HOME/Documents/Notes}"
 DST="${NOTES_DST:-DriveBruno:Notes}"
 
