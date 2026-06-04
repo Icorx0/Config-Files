@@ -62,7 +62,17 @@ PACKAGES_TO_INSTALL+=("make" "git")
 
 for app in $ENABLED; do
     case "$app" in
-        nvim)       PACKAGES_TO_INSTALL+=("neovim" "curl") ;;
+        nvim)
+            if [ "$PKG_MANAGER" = "apt-get" ]; then
+                # Neovim stable PPA is outdated; use unstable for >= 0.8.0 (required by lazy.nvim).
+                if ! grep -q "neovim-ppa/unstable" /etc/apt/sources.list.d/*.list 2>/dev/null; then
+                    echo "Adding Neovim unstable PPA..."
+                    apt-get install -y software-properties-common
+                    add-apt-repository -y ppa:neovim-ppa/unstable
+                fi
+            fi
+            PACKAGES_TO_INSTALL+=("neovim" "curl")
+            ;;
         tmux)       PACKAGES_TO_INSTALL+=("tmux") ;;
         alacritty)
             if [ "$PKG_MANAGER" = "apt-get" ]; then
